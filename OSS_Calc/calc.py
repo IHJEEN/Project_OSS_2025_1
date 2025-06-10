@@ -8,6 +8,7 @@ class Calculator:
         self.root.geometry("300x400")
 
         self.expression = ""
+        self.last_result = "" 
 
         # 입력창
         self.entry = tk.Entry(root, font=("Arial", 24), justify="right")
@@ -19,7 +20,7 @@ class Calculator:
             ['4', '5', '6', '*'],
             ['1', '2', '3', '-'],
             ['0', '.', 'C', '+'],
-            ['=']
+            ['=','R']
         ]
 
         for row in buttons:
@@ -40,13 +41,13 @@ class Calculator:
         elif char == '=':
             try:
                 self.expression = str(eval(self.expression))
+                self.last_result = self.expression
             except Exception:
                 self.expression = "에러"
+        elif char == 'R':
+            self.expression += self.last_result
         else:
             self.expression += str(char)
 
         self.entry.delete(0, tk.END)
         self.entry.insert(tk.END, self.expression)
-
-
-
